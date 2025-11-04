@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Upload Media</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .back-link {
+            color: white;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Login Container */
+        .login-container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2575fc;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="file"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+        
+        .file-input-container {
+            position: relative;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: border 0.3s;
+            background: #fafafa;
+        }
+        
+        .file-input-container:hover {
+            border-color: #2575fc;
+        }
+        
+        .file-input-container.dragover {
+            border-color: #2575fc;
+            background: #f0f7ff;
+        }
+        
+        .file-input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .file-input-label {
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .file-input-label i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+            color: #2575fc;
+        }
+        
+        .file-preview {
+            margin-top: 15px;
+            max-height: 150px;
+            display: none;
+        }
+        
+        .file-preview img,
+        .file-preview video {
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 4px;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .login-btn:hover {
+            background: #1a68e8;
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .panel-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2575fc;
+            font-size: 1.8rem;
+        }
+        
+        /* Tab Navigation */
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .admin-tab {
+            padding: 12px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .admin-tab.active {
+            color: #2575fc;
+            border-bottom-color: #2575fc;
+        }
+        
+        .admin-tab:hover {
+            color: #2575fc;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .upload-form {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        .upload-btn {
+            padding: 12px 25px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+            font-weight: 500;
+            width: 100%;
+        }
+        
+        .upload-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .upload-btn:hover:not(:disabled) {
+            background: #218838;
+        }
+        
+        .settings-form {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
+        .settings-title {
+            margin-bottom: 20px;
+            color: #2575fc;
+            font-size: 1.4rem;
+        }
+        
+        .change-password-btn {
+            padding: 12px 25px;
+            background: #ffc107;
+            color: #212529;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .change-password-btn:hover {
+            background: #e0a800;
+        }
+        
+        .file-list {
+            margin-top: 30px;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+        
+        .file-item:hover {
+            background: #f9f9f9;
+        }
+        
+        .file-preview-small {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+        
+        .file-info {
+            flex: 1;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .file-details {
+            display: flex;
+            gap: 15px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .file-actions button {
+            padding: 6px 12px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .delete-btn:hover {
+            background: #c82333;
+        }
+        
+        .logout-btn {
+            background: #6c757d;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+        
+        .logout-btn:hover {
+            background: #5a6268;
+        }
+        
+        .message {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .progress {
+            height: 100%;
+            background: #28a745;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .file-actions {
+                align-self: flex-end;
+            }
+            
+            .admin-tabs {
+                flex-direction: column;
+            }
+            
+            .admin-tab {
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Panel Admin</h1>
+            <p>Upload dan kelola media untuk galeri publik</p>
+            <a href="index.html" class="back-link">Kembali ke Galeri</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Login Form -->
+        <div id="loginForm" class="login-container">
+            <h2 class="login-title">Admin Login</h2>
+            <div id="loginMessage" class="message"></div>
+            <form id="loginFormElement">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+        
+        <!-- Admin Panel (akan ditampilkan setelah login berhasil) -->
+        <div id="adminPanel" class="admin-panel">
+            <h2 class="panel-title">Panel Admin</h2>
+            
+            <!-- Tab Navigation -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="upload">Upload Media</button>
+                <button class="admin-tab" data-tab="settings">Pengaturan</button>
+            </div>
+            
+            <!-- Upload Tab -->
+            <div id="uploadTab" class="tab-content active">
+                <div id="uploadMessage" class="message"></div>
+                
+                <div class="upload-form">
+                    <h3 style="margin-bottom: 20px;">Upload File Baru</h3>
+                    <form id="uploadForm">
+                        <div class="form-group">
+                            <label for="fileType">Jenis Media</label>
+                            <select id="fileType" name="fileType" required>
+                                <option value="">Pilih jenis media</option>
+                                <option value="image">Gambar (JPG, PNG, GIF)</option>
+                                <option value="video">Video (MP4, AVI, MOV)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fileTitle">Judul Media</label>
+                            <input type="text" id="fileTitle" name="fileTitle" required placeholder="Masukkan judul media">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fileDescription">Deskripsi</label>
+                            <textarea id="fileDescription" name="fileDescription" rows="3" placeholder="Masukkan deskripsi media"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Upload File</label>
+                            <div class="file-input-container" id="fileDropArea">
+                                <input type="file" id="fileInput" class="file-input" accept=".jpg,.jpeg,.png,.gif,.mp4,.avi,.mov" required>
+                                <div class="file-input-label">
+                                    <div>📁</div>
+                                    <strong>Klik untuk memilih file atau tarik file ke sini</strong>
+                                    <p style="margin-top: 5px; font-size: 0.9rem; color: #888;">
+                                        Format yang didukung: JPG, PNG, GIF, MP4, AVI, MOV
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="file-preview" id="filePreview"></div>
+                            <div class="progress-bar" id="progressBar">
+                                <div class="progress" id="progress"></div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="upload-btn" id="uploadBtn" disabled>Upload Media</button>
+                    </form>
+                </div>
+                
+                <div class="file-list">
+                    <h3 style="margin-bottom: 20px;">Daftar Media</h3>
+                    <div id="imageList">
+                        <h4 style="margin-bottom: 15px; color: #2575fc;">Gambar</h4>
+                        <div id="imageItems">
+                            <!-- Daftar gambar akan ditampilkan di sini -->
+                        </div>
+                    </div>
+                    
+                    <div id="videoList" style="margin-top: 30px;">
+                        <h4 style="margin-bottom: 15px; color: #2575fc;">Video</h4>
+                        <div id="videoItems">
+                            <!-- Daftar video akan ditampilkan di sini -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div id="settingsTab" class="tab-content">
+                <div id="settingsMessage" class="message"></div>
+                
+                <div class="settings-form">
+                    <h3 class="settings-title">Pengaturan Akun</h3>
+                    
+                    <form id="usernameForm">
+                        <div class="form-group">
+                            <label for="currentUsername">Username Saat Ini</label>
+                            <input type="text" id="currentUsername" readonly style="background: #e9ecef;">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newUsername">Username Baru</label>
+                            <input type="text" id="newUsername" name="newUsername" placeholder="Masukkan username baru">
+                        </div>
+                        
+                        <button type="submit" class="change-password-btn">Ganti Username</button>
+                    </form>
+                </div>
+                
+                <div class="settings-form">
+                    <h3 class="settings-title">Ganti Password</h3>
+                    
+                    <form id="passwordForm">
+                        <div class="form-group">
+                            <label for="currentPassword">Password Saat Ini</label>
+                            <input type="password" id="currentPassword" name="currentPassword" placeholder="Masukkan password saat ini" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newPassword">Password Baru</label>
+                            <input type="password" id="newPassword" name="newPassword" placeholder="Masukkan password baru" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Konfirmasi Password Baru</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Konfirmasi password baru" required>
+                        </div>
+                        
+                        <button type="submit" class="change-password-btn">Ganti Password</button>
+                    </form>
+                </div>
+            </div>
+            
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Galeri Media. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Default credentials
+        const DEFAULT_USERNAME = "admin";
+        const DEFAULT_PASSWORD = "password123";
+        
+        // Get credentials from localStorage or set defaults
+        function getCredentials() {
+            const storedUsername = localStorage.getItem('adminUsername');
+            const storedPassword = localStorage.getItem('adminPassword');
+            
+            return {
+                username: storedUsername || DEFAULT_USERNAME,
+                password: storedPassword || DEFAULT_PASSWORD
+            };
+        }
+        
+        // Save credentials to localStorage
+        function saveCredentials(username, password) {
+            localStorage.setItem('adminUsername', username);
+            localStorage.setItem('adminPassword', password);
+        }
+        
+        // Elemen DOM
+        const loginForm = document.getElementById('loginForm');
+        const adminPanel = document.getElementById('adminPanel');
+        const loginFormElement = document.getElementById('loginFormElement');
+        const uploadForm = document.getElementById('uploadForm');
+        const usernameForm = document.getElementById('usernameForm');
+        const passwordForm = document.getElementById('passwordForm');
+        const fileInput = document.getElementById('fileInput');
+        const fileDropArea = document.getElementById('fileDropArea');
+        const filePreview = document.getElementById('filePreview');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progress = document.getElementById('progress');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginMessage = document.getElementById('loginMessage');
+        const uploadMessage = document.getElementById('uploadMessage');
+        const settingsMessage = document.getElementById('settingsMessage');
+        const imageItems = document.getElementById('imageItems');
+        const videoItems = document.getElementById('videoItems');
+        const currentUsername = document.getElementById('currentUsername');
+        const adminTabs = document.querySelectorAll('.admin-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        let selectedFile = null;
+        
+        // Initialize
+        function initialize() {
+            const credentials = getCredentials();
+            currentUsername.value = credentials.username;
+        }
+        
+        // Cek status login
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            showAdminPanel();
+        }
+        
+        // Initialize credentials display
+        initialize();
+        
+        // Tab navigation
+        adminTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Update active tab
+                adminTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show active content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === tabId + 'Tab') {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        // Event listener untuk form login
+        loginFormElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const credentials = getCredentials();
+            
+            if (username === credentials.username && password === credentials.password) {
+                localStorage.setItem('isLoggedIn', 'true');
+                showAdminPanel();
+                showMessage(loginMessage, 'Login berhasil!', 'success');
+            } else {
+                showMessage(loginMessage, 'Username atau password salah!', 'error');
+            }
+        });
+        
+        // Event listener untuk ganti username
+        usernameForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newUsername = document.getElementById('newUsername').value.trim();
+            const credentials = getCredentials();
+            
+            if (!newUsername) {
+                showMessage(settingsMessage, 'Masukkan username baru!', 'error');
+                return;
+            }
+            
+            if (newUsername === credentials.username) {
+                showMessage(settingsMessage, 'Username baru sama dengan username saat ini!', 'error');
+                return;
+            }
+            
+            if (newUsername.length < 3) {
+                showMessage(settingsMessage, 'Username harus minimal 3 karakter!', 'error');
+                return;
+            }
+            
+            // Update username
+            saveCredentials(newUsername, credentials.password);
+            currentUsername.value = newUsername;
+            document.getElementById('newUsername').value = '';
+            
+            showMessage(settingsMessage, 'Username berhasil diubah!', 'success');
+        });
+        
+        // Event listener untuk ganti password
+        passwordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const currentPass = document.getElementById('currentPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirmPass = document.getElementById('confirmPassword').value;
+            const credentials = getCredentials();
+            
+            // Validasi
+            if (currentPass !== credentials.password) {
+                showMessage(settingsMessage, 'Password saat ini salah!', 'error');
+                return;
+            }
+            
+            if (newPass.length < 6) {
+                showMessage(settingsMessage, 'Password baru harus minimal 6 karakter!', 'error');
+                return;
+            }
+            
+            if (newPass !== confirmPass) {
+                showMessage(settingsMessage, 'Konfirmasi password tidak cocok!', 'error');
+                return;
+            }
+            
+            if (newPass === credentials.password) {
+                showMessage(settingsMessage, 'Password baru sama dengan password saat ini!', 'error');
+                return;
+            }
+            
+            // Update password
+            saveCredentials(credentials.username, newPass);
+            passwordForm.reset();
+            
+            showMessage(settingsMessage, 'Password berhasil diubah!', 'success');
+        });
+        
+        // Drag and drop functionality
+        fileDropArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            fileDropArea.classList.add('dragover');
+        });
+        
+        fileDropArea.addEventListener('dragleave', function() {
+            fileDropArea.classList.remove('dragover');
+        });
+        
+        fileDropArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            fileDropArea.classList.remove('dragover');
+            
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+                handleFileSelect(e.dataTransfer.files[0]);
+            }
+        });
+        
+        // File input change
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                handleFileSelect(this.files[0]);
+            }
+        });
+        
+        // Handle file selection
+        function handleFileSelect(file) {
+            selectedFile = file;
+            
+            // Validasi file type
+            const fileType = document.getElementById('fileType').value;
+            const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            const validVideoTypes = ['video/mp4', 'video/avi', 'video/quicktime'];
+            
+            if (fileType === 'image' && !validImageTypes.includes(file.type)) {
+                showMessage(uploadMessage, 'Format file gambar tidak didukung! Gunakan JPG, PNG, atau GIF.', 'error');
+                resetFileInput();
+                return;
+            }
+            
+            if (fileType === 'video' && !validVideoTypes.includes(file.type)) {
+                showMessage(uploadMessage, 'Format file video tidak didukung! Gunakan MP4, AVI, atau MOV.', 'error');
+                resetFileInput();
+                return;
+            }
+            
+            // Tampilkan preview
+            filePreview.style.display = 'block';
+            if (file.type.startsWith('image/')) {
+                filePreview.innerHTML = `<img src="${URL.createObjectURL(file)}" alt="Preview">`;
+            } else if (file.type.startsWith('video/')) {
+                filePreview.innerHTML = `<video controls><source src="${URL.createObjectURL(file)}" type="${file.type}"></video>`;
+            }
+            
+            // Aktifkan tombol upload
+            uploadBtn.disabled = false;
+        }
+        
+        // Event listener untuk form upload
+        uploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedFile) {
+                showMessage(uploadMessage, 'Pilih file terlebih dahulu!', 'error');
+                return;
+            }
+            
+            const fileType = document.getElementById('fileType').value;
+            const title = document.getElementById('fileTitle').value;
+            const description = document.getElementById('fileDescription').value;
+            
+            // Tampilkan progress bar
+            progressBar.style.display = 'block';
+            progress.style.width = '0%';
+            
+            // Simulasi upload progress
+            let progressValue = 0;
+            const progressInterval = setInterval(() => {
+                progressValue += 5;
+                progress.style.width = progressValue + '%';
+                
+                if (progressValue >= 100) {
+                    clearInterval(progressInterval);
+                    
+                    // Convert file to base64
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const mediaItem = {
+                            id: Date.now(),
+                            type: fileType,
+                            title: title,
+                            description: description,
+                            size: formatFileSize(selectedFile.size),
+                            filename: selectedFile.name,
+                            url: e.target.result,
+                            date: new Date().toLocaleDateString('id-ID')
+                        };
+                        
+                        // Simpan ke localStorage
+                        let mediaArray;
+                        if (fileType === 'image') {
+                            mediaArray = JSON.parse(localStorage.getItem('uploadedImages') || '[]');
+                            mediaArray.push(mediaItem);
+                            localStorage.setItem('uploadedImages', JSON.stringify(mediaArray));
+                        } else {
+                            mediaArray = JSON.parse(localStorage.getItem('uploadedVideos') || '[]');
+                            mediaArray.push(mediaItem);
+                            localStorage.setItem('uploadedVideos', JSON.stringify(mediaArray));
+                        }
+                        
+                        // Reset form
+                        uploadForm.reset();
+                        resetFileInput();
+                        progressBar.style.display = 'none';
+                        
+                        // Tampilkan pesan sukses
+                        showMessage(uploadMessage, 'Media berhasil diupload!', 'success');
+                        
+                        // Muat ulang daftar media
+                        loadMediaList();
+                    };
+                    reader.readAsDataURL(selectedFile);
+                }
+            }, 100);
+        });
+        
+        // Event listener untuk logout
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('isLoggedIn');
+            showLoginForm();
+        });
+        
+        // Fungsi untuk menampilkan panel admin
+        function showAdminPanel() {
+            loginForm.style.display = 'none';
+            adminPanel.style.display = 'block';
+            loadMediaList();
+        }
+        
+        // Fungsi untuk menampilkan form login
+        function showLoginForm() {
+            loginForm.style.display = 'block';
+            adminPanel.style.display = 'none';
+            loginFormElement.reset();
+        }
+        
+        // Fungsi untuk menampilkan pesan
+        function showMessage(element, text, type) {
+            element.textContent = text;
+            element.className = `message ${type}`;
+            element.style.display = 'block';
+            
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Fungsi untuk memuat daftar media
+        function loadMediaList() {
+            const images = JSON.parse(localStorage.getItem('uploadedImages') || '[]');
+            const videos = JSON.parse(localStorage.getItem('uploadedVideos') || '[]');
+            
+            // Tampilkan gambar
+            if (images.length > 0) {
+                imageItems.innerHTML = images.map(image => `
+                    <div class="file-item">
+                        <img src="${image.url}" alt="${image.title}" class="file-preview-small">
+                        <div class="file-info">
+                            <div class="file-name">${image.title}</div>
+                            <div class="file-details">
+                                <span>${image.size}</span>
+                                <span>${image.filename}</span>
+                                <span>${image.date}</span>
+                            </div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="delete-btn" onclick="deleteMedia('image', ${image.id})">Hapus</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                imageItems.innerHTML = '<div class="empty-state">Belum ada gambar yang diupload</div>';
+            }
+            
+            // Tampilkan video
+            if (videos.length > 0) {
+                videoItems.innerHTML = videos.map(video => `
+                    <div class="file-item">
+                        <div class="file-preview-small" style="background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #666; font-size: 1.5rem;">
+                            🎥
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">${video.title}</div>
+                            <div class="file-details">
+                                <span>${video.size}</span>
+                                <span>${video.filename}</span>
+                                <span>${video.date}</span>
+                            </div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="delete-btn" onclick="deleteMedia('video', ${video.id})">Hapus</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                videoItems.innerHTML = '<div class="empty-state">Belum ada video yang diupload</div>';
+            }
+        }
+        
+        // Fungsi untuk menghapus media
+        window.deleteMedia = function(type, id) {
+            if (confirm('Apakah Anda yakin ingin menghapus media ini?')) {
+                let mediaArray;
+                if (type === 'image') {
+                    mediaArray = JSON.parse(localStorage.getItem('uploadedImages') || '[]');
+                    mediaArray = mediaArray.filter(item => item.id !== id);
+                    localStorage.setItem('uploadedImages', JSON.stringify(mediaArray));
+                } else {
+                    mediaArray = JSON.parse(localStorage.getItem('uploadedVideos') || '[]');
+                    mediaArray = mediaArray.filter(item => item.id !== id);
+                    localStorage.setItem('uploadedVideos', JSON.stringify(mediaArray));
+                }
+                
+                loadMediaList();
+                showMessage(uploadMessage, 'Media berhasil dihapus!', 'success');
+            }
+        }
+        
+        // Fungsi untuk reset file input
+        function resetFileInput() {
+            fileInput.value = '';
+            filePreview.style.display = 'none';
+            filePreview.innerHTML = '';
+            uploadBtn.disabled = true;
+            selectedFile = null;
+        }
+        
+        // Fungsi untuk format ukuran file
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // Reset file input ketika jenis media berubah
+        document.getElementById('fileType').addEventListener('change', function() {
+            resetFileInput();
+            if (this.value === 'image') {
+                fileInput.accept = '.jpg,.jpeg,.png,.gif';
+            } else if (this.value === 'video') {
+                fileInput.accept = '.mp4,.avi,.mov';
+            }
+        });
+    </script>
+</body>
+</html>
