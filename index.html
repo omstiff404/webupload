@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Stiff Totemo - Download</title>
+    <meta name="description" content="Download gambar berkualitas tinggi dari Galeri Stiff Totemo">
+    <meta name="google-adsense-account" content="ca-pub-5463996880495401">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5463996880495401"
+     crossorigin="anonymous"></script>
+    <!-- AMP Auto Ads -->
+    <script async custom-element="amp-auto-ads"
+            src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header dengan Avatar Kotak Bundar */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #ff6b6b);
+            background-size: 600% 600%;
+            animation: gradientShift 8s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+        
+        /* Avatar Kotak Bundar (Squircle) */
+        .avatar-border {
+            width: 140px;
+            height: 140px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #f5576c);
+            padding: 6px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .avatar-border::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #74ebd5, #9face6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            border: 4px solid white;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 25px;
+        }
+        
+        .avatar-status {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 24px;
+            height: 24px;
+            background: #4cd964;
+            border: 3px solid white;
+            border-radius: 50%;
+            z-index: 3;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .admin-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            margin-top: 15px;
+        }
+        
+        .admin-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        /* Music Player Styles - Dipindahkan ke bawah avatar */
+        .music-player {
+            width: 90%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 20px auto 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .music-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .music-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 3px;
+        }
+        
+        .music-artist {
+            font-size: 0.8rem;
+            color: #666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .music-btn {
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .music-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .music-btn.play-pause {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .progress-container {
+            flex: 1;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+        
+        .time-display {
+            font-size: 0.7rem;
+            color: #666;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .volume-slider {
+            width: 60px;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .volume-progress {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+            width: 100%;
+        }
+        
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 5px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-tab {
+            padding: 12px 30px;
+            background: none;
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-tab.active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+        }
+        
+        .category-btn.active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Section Styles */
+        .download-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #667eea;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+        
+        /* Ad Container */
+        .ad-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .ad-placeholder {
+            width: 100%;
+            max-width: 728px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Media Grid - Layout Responsif */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .media-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .media-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .media-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .media-card:hover .media-thumbnail {
+            transform: scale(1.05);
+        }
+        
+        .media-info {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .media-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .media-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #2d3748;
+            margin-bottom: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .download-count {
+            font-size: 0.8rem;
+            color: #667eea;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 4px 8px;
+            border-radius: 10px;
+        }
+        
+        .media-desc {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            flex-grow: 1;
+        }
+        
+        .media-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: #888;
+            margin-bottom: 10px;
+            padding-top: 8px;
+            border-top: 1px solid #eee;
+        }
+        
+        .category-tag {
+            background: #e2e8f0;
+            color: #4a5568;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex: 1;
+            padding: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .view-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex: 1;
+            padding: 8px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .view-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px 30px;
+            color: rgba(255, 255, 255, 0.8);
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .empty-state h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+        }
+        
+        .modal-info {
+            padding: 20px;
+            background: white;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Notification Styles */
+        .download-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 280px;
+        }
+        
+        .download-notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .notification-icon {
+            font-size: 1.1rem;
+        }
+        
+        .notification-text {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 2px;
+            font-size: 0.9rem;
+        }
+        
+        .notification-filename {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .media-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .media-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .media-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+            
+            .stats {
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .avatar-border {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .download-notification {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .ad-placeholder {
+                height: 100px;
+            }
+            
+            .category-filter {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .music-player {
+                width: 95%;
+                padding: 10px;
+            }
+            
+            .volume-control {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .media-header {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                border-radius: 10px;
+            }
+            
+            .ad-placeholder {
+                height: 80px;
+            }
+            
+            .music-player {
+                flex-wrap: wrap;
+            }
+            
+            .music-info {
+                order: 1;
+                flex-basis: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .music-controls {
+                order: 2;
+                justify-content: center;
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- AMP Auto Ads -->
+    <amp-auto-ads type="adsense"
+            data-ad-client="ca-pub-5463996880495401">
+    </amp-auto-ads>
+
+    <header>
+        <div class="container">
+            <div class="avatar-container">
+                <div class="avatar-border">
+                    <div class="avatar" id="userAvatar">
+                        <!-- Avatar akan dimuat dari localStorage -->
+                    </div>
+                </div>
+                <div class="avatar-status"></div>
+            </div>
+            
+            <h1>Galeri Stiff Totemo</h1>
+            <p class="subtitle">Download Gambar Berkualitas Tinggi</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="imageCount">0</div>
+                    <div class="stat-label">Gambar</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalDownloads">0</div>
+                    <div class="stat-label">Total Download</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="categoryCount">0</div>
+                    <div class="stat-label">Kategori</div>
+                </div>
+            </div>
+            
+            <!-- Music Player - Dipindahkan ke bawah avatar -->
+            <div class="music-player" id="musicPlayer">
+                <div class="music-info">
+                    <div class="music-title" id="musicTitle">Memuat musik...</div>
+                    <div class="music-artist" id="musicArtist">Galeri Stiff Totemo</div>
+                </div>
+                <div class="music-controls">
+                    <button class="music-btn prev-btn" id="prevBtn">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button class="music-btn play-pause" id="playPauseBtn">
+                        <i class="fas fa-play" id="playIcon"></i>
+                    </button>
+                    <button class="music-btn next-btn" id="nextBtn">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                </div>
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="time-display" id="currentTime">0:00</div>
+                <div class="volume-control">
+                    <i class="fas fa-volume-up volume-icon"></i>
+                    <div class="volume-slider" id="volumeSlider">
+                        <div class="volume-progress" id="volumeProgress"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="admin.html" class="admin-link">
+                <i class="fas fa-lock"></i>
+                Login Admin
+            </a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Ad Banner Top -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5463996880495401"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <!-- Category Filter -->
+        <div class="category-filter" id="categoryFilter">
+            <!-- Kategori akan dimuat secara dinamis -->
+        </div>
+        
+        <!-- Free Images Section -->
+        <div id="freeTab" class="download-section tab-content active">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <div>
+                    <h2 class="section-title">Galeri Gambar</h2>
+                    <p class="section-subtitle">Download gambar berkualitas tinggi</p>
+                </div>
+            </div>
+            
+            <div class="media-grid" id="freeGallery">
+                <!-- Gambar akan ditampilkan di sini -->
+            </div>
+        </div>
+        
+        <!-- Ad Banner Bottom -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5463996880495401"
+                 data-ad-slot="1234567891"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modalImage" class="modal-image" src="" alt="">
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+                <div class="action-buttons" style="margin-top: 15px;">
+                    <button class="download-btn" id="modalDownload">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Galeri Stiff Totemo. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <!-- Audio Element -->
+    <audio id="audioPlayer" preload="metadata"></audio>
+
+    <script>
+        // Default categories
+        const DEFAULT_CATEGORIES = [
+            "Semua Gambar",
+            "Wallpaper",
+            "Ilustrasi",
+            "Pemandangan",
+            "Abstrak",
+            "Seni Digital",
+            "Karakter",
+            "Lainnya"
+        ];
+
+        // Default music playlist
+        const DEFAULT_MUSIC_PLAYLIST = [
+            {
+                title: "Lofi Study Beat",
+                artist: "Chill Vibes",
+                src: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_d5b960f565.mp3?filename=lofi-study-112191.mp3"
+            },
+            {
+                title: "Relaxing Piano",
+                artist: "Peaceful Melodies",
+                src: "https://cdn.pixabay.com/download/audio/2022/01/18/audio_2c3cc5c825.mp3?filename=relaxing-piano-121912.mp3"
+            },
+            {
+                title: "Ambient Background",
+                artist: "Atmospheric Sounds",
+                src: "https://cdn.pixabay.com/download/audio/2021/10/25/audio_0d0d2a97c2.mp3?filename=ambient-piano-121912.mp3"
+            }
+        ];
+
+        // Music Player Functionality
+        let currentMusicIndex = 0;
+        let isPlaying = false;
+        let isAutoPlayEnabled = true;
+
+        const audioPlayer = document.getElementById('audioPlayer');
+        const musicPlayer = document.getElementById('musicPlayer');
+        const musicTitle = document.getElementById('musicTitle');
+        const musicArtist = document.getElementById('musicArtist');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playIcon = document.getElementById('playIcon');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.getElementById('progressContainer');
+        const currentTime = document.getElementById('currentTime');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeProgress = document.getElementById('volumeProgress');
+
+        // Initialize music player
+        function initializeMusicPlayer() {
+            // Load playlist dari localStorage (yang sudah disimpan dari panel admin)
+            const savedPlaylist = localStorage.getItem('musicPlaylist');
+            const playlist = savedPlaylist ? JSON.parse(savedPlaylist) : DEFAULT_MUSIC_PLAYLIST;
+            
+            // Set volume
+            const savedVolume = localStorage.getItem('musicVolume');
+            audioPlayer.volume = savedVolume ? parseFloat(savedVolume) : 0.7;
+            volumeProgress.style.width = (audioPlayer.volume * 100) + '%';
+            
+            // Load first song
+            loadMusic(0, playlist);
+            
+            // Auto play if enabled
+            if (isAutoPlayEnabled) {
+                setTimeout(() => {
+                    playMusic();
+                }, 2000);
+            }
+        }
+
+        // Load music
+        function loadMusic(index, playlist) {
+            if (!playlist || playlist.length === 0) {
+                musicTitle.textContent = "Tidak ada musik";
+                musicArtist.textContent = "Silakan tambah musik di panel admin";
+                return;
+            }
+
+            const music = playlist[index];
+            audioPlayer.src = music.src;
+            musicTitle.textContent = music.title;
+            musicArtist.textContent = music.artist;
+            currentMusicIndex = index;
+            
+            audioPlayer.addEventListener('loadedmetadata', () => {
+                updateProgress();
+            });
+        }
+
+        // Play music
+        function playMusic() {
+            const playlist = JSON.parse(localStorage.getItem('musicPlaylist') || JSON.stringify(DEFAULT_MUSIC_PLAYLIST));
+            if (playlist.length === 0) {
+                return;
+            }
+            
+            audioPlayer.play().then(() => {
+                isPlaying = true;
+                playIcon.className = 'fas fa-pause';
+            }).catch(error => {
+                console.error('Error playing music:', error);
+                musicTitle.textContent = "Error memutar musik";
+                musicArtist.textContent = "Periksa koneksi internet";
+            });
+        }
+
+        // Pause music
+        function pauseMusic() {
+            audioPlayer.pause();
+            isPlaying = false;
+            playIcon.className = 'fas fa-play';
+        }
+
+        // Next music
+        function nextMusic() {
+            const playlist = JSON.parse(localStorage.getItem('musicPlaylist') || JSON.stringify(DEFAULT_MUSIC_PLAYLIST));
+            if (playlist.length === 0) return;
+            
+            currentMusicIndex = (currentMusicIndex + 1) % playlist.length;
+            loadMusic(currentMusicIndex, playlist);
+            if (isPlaying) playMusic();
+        }
+
+        // Previous music
+        function prevMusic() {
+            const playlist = JSON.parse(localStorage.getItem('musicPlaylist') || JSON.stringify(DEFAULT_MUSIC_PLAYLIST));
+            if (playlist.length === 0) return;
+            
+            currentMusicIndex = (currentMusicIndex - 1 + playlist.length) % playlist.length;
+            loadMusic(currentMusicIndex, playlist);
+            if (isPlaying) playMusic();
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            if (audioPlayer.duration) {
+                const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressBar.style.width = progress + '%';
+                
+                // Update time display
+                const minutes = Math.floor(audioPlayer.currentTime / 60);
+                const seconds = Math.floor(audioPlayer.currentTime % 60);
+                currentTime.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        // Set progress
+        function setProgress(e) {
+            const width = this.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audioPlayer.duration;
+            
+            if (duration) {
+                audioPlayer.currentTime = (clickX / width) * duration;
+            }
+        }
+
+        // Set volume
+        function setVolume(e) {
+            const width = this.clientWidth;
+            const clickX = e.offsetX;
+            const volume = clickX / width;
+            
+            audioPlayer.volume = volume;
+            volumeProgress.style.width = (volume * 100) + '%';
+            localStorage.setItem('musicVolume', volume.toString());
+        }
+
+        // Event listeners for music player
+        playPauseBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                pauseMusic();
+            } else {
+                playMusic();
+            }
+        });
+
+        prevBtn.addEventListener('click', prevMusic);
+        nextBtn.addEventListener('click', nextMusic);
+
+        audioPlayer.addEventListener('timeupdate', updateProgress);
+        audioPlayer.addEventListener('ended', nextMusic);
+
+        progressContainer.addEventListener('click', setProgress);
+        volumeSlider.addEventListener('click', setVolume);
+
+        // Fungsi untuk memuat avatar dari localStorage
+        function loadAvatar() {
+            const avatar = document.getElementById('userAvatar');
+            const savedAvatar = localStorage.getItem('userAvatar');
+            
+            if (savedAvatar) {
+                avatar.innerHTML = `<img src="${savedAvatar}" alt="User Avatar">`;
+            } else {
+                // Avatar default
+                avatar.innerHTML = '<i class="fas fa-user"></i>';
+            }
+        }
+        
+        // Fungsi untuk menghitung total download
+        function getTotalDownloads() {
+            const images = JSON.parse(localStorage.getItem('githubImages') || '[]');
+            
+            let total = 0;
+            
+            // Hitung download gambar
+            images.forEach(image => {
+                total += parseInt(localStorage.getItem(`downloads_${image.id}`) || '0');
+            });
+            
+            return total;
+        }
+        
+        // Fungsi untuk menambah counter download
+        function incrementDownload(mediaId) {
+            const currentCount = parseInt(localStorage.getItem(`downloads_${mediaId}`) || '0');
+            localStorage.setItem(`downloads_${mediaId}`, (currentCount + 1).toString());
+            
+            // Update total downloads display
+            updateStats();
+        }
+        
+        // Fungsi untuk update statistik
+        function updateStats() {
+            const images = JSON.parse(localStorage.getItem('githubImages') || '[]');
+            const totalDownloads = getTotalDownloads();
+            const categories = getCategoriesFromImages(images);
+            
+            document.getElementById('imageCount').textContent = images.length;
+            document.getElementById('totalDownloads').textContent = totalDownloads;
+            document.getElementById('categoryCount').textContent = categories.length;
+        }
+        
+        // Fungsi untuk mendapatkan kategori dari gambar
+        function getCategoriesFromImages(images) {
+            const categories = new Set();
+            
+            images.forEach(image => {
+                if (image.category) {
+                    categories.add(image.category);
+                }
+            });
+            
+            return Array.from(categories);
+        }
+        
+        // Fungsi untuk memuat kategori
+        function loadCategories() {
+            const images = JSON.parse(localStorage.getItem('githubImages') || '[]');
+            const categories = getCategoriesFromImages(images);
+            const categoryFilter = document.getElementById('categoryFilter');
+            
+            // Jika tidak ada kategori, gunakan default
+            const allCategories = categories.length > 0 ? categories : DEFAULT_CATEGORIES;
+            
+            categoryFilter.innerHTML = '';
+            
+            // Tambahkan tombol "Semua Gambar" sebagai default aktif
+            const allButton = document.createElement('button');
+            allButton.className = 'category-btn active';
+            allButton.textContent = 'Semua Gambar';
+            allButton.setAttribute('data-category', 'all');
+            allButton.addEventListener('click', function() {
+                // Set semua tombol kategori ke non-aktif
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                // Set tombol ini ke aktif
+                this.classList.add('active');
+                // Tampilkan semua gambar
+                filterImagesByCategory('all');
+            });
+            categoryFilter.appendChild(allButton);
+            
+            // Tambahkan tombol untuk setiap kategori
+            allCategories.forEach(category => {
+                if (category !== 'Semua Gambar') {
+                    const button = document.createElement('button');
+                    button.className = 'category-btn';
+                    button.textContent = category;
+                    button.setAttribute('data-category', category);
+                    button.addEventListener('click', function() {
+                        // Set semua tombol kategori ke non-aktif
+                        document.querySelectorAll('.category-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        // Set tombol ini ke aktif
+                        this.classList.add('active');
+                        // Filter gambar berdasarkan kategori
+                        filterImagesByCategory(category);
+                    });
+                    categoryFilter.appendChild(button);
+                }
+            });
+        }
+        
+        // Fungsi untuk memfilter gambar berdasarkan kategori
+        function filterImagesByCategory(category) {
+            const images = JSON.parse(localStorage.getItem('githubImages') || '[]');
+            const freeGallery = document.getElementById('freeGallery');
+            
+            // Kosongkan galeri
+            freeGallery.innerHTML = '';
+            
+            // Filter gambar berdasarkan kategori
+            let filteredImages = images;
+            if (category !== 'all') {
+                filteredImages = images.filter(img => img.category === category);
+            }
+            
+            // Tampilkan gambar yang difilter
+            if (filteredImages.length > 0) {
+                filteredImages.forEach(image => {
+                    const imageCard = createMediaCard(image);
+                    freeGallery.appendChild(imageCard);
+                });
+            } else {
+                freeGallery.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-image"></i>
+                        <h3>Tidak ada gambar</h3>
+                        <p>${category === 'all' ? 'Belum ada gambar yang diupload' : `Tidak ada gambar dalam kategori "${category}"`}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Fungsi untuk memuat media dari localStorage
+        function loadMedia() {
+            // Gunakan githubImages sebagai sumber data utama
+            const images = JSON.parse(localStorage.getItem('githubImages') || '[]');
+            
+            const freeGallery = document.getElementById('freeGallery');
+            
+            // Update statistik
+            updateStats();
+            
+            // Kosongkan galeri
+            freeGallery.innerHTML = '';
+            
+            // Tampilkan semua gambar
+            if (images.length > 0) {
+                // Sort by upload date (newest first)
+                images.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+                
+                images.forEach(image => {
+                    const imageCard = createMediaCard(image);
+                    freeGallery.appendChild(imageCard);
+                });
+            } else {
+                freeGallery.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-image"></i>
+                        <h3>Belum ada gambar</h3>
+                        <p>Admin belum mengupload gambar ke GitHub</p>
+                    </div>
+                `;
+            }
+            
+            // Muat kategori
+            loadCategories();
+        }
+        
+        // Fungsi untuk membuat kartu media
+        function createMediaCard(media) {
+            const card = document.createElement('div');
+            card.className = 'media-card';
+            
+            // Hitung jumlah download untuk media ini
+            const downloadCount = parseInt(localStorage.getItem(`downloads_${media.id}`) || '0');
+            
+            card.innerHTML = `
+                <img src="${media.url}" alt="${media.title}" class="media-thumbnail" data-media-id="${media.id}">
+                <div class="media-info">
+                    <div class="media-header">
+                        <div>
+                            <div class="media-title">${media.title}</div>
+                        </div>
+                        <div class="download-count">
+                            <i class="fas fa-download"></i> ${downloadCount}
+                        </div>
+                    </div>
+                    <div class="media-desc">${media.description}</div>
+                    <div class="media-meta">
+                        <span>${media.size}</span>
+                        <span class="category-tag">${media.category || 'Lainnya'}</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="download-btn" data-media-id="${media.id}" data-filename="${media.filename}" data-title="${media.title}">
+                            <i class="fas fa-download"></i>
+                            Download
+                        </button>
+                        <button class="view-btn" data-media-id="${media.id}">
+                            <i class="fas fa-eye"></i>
+                            Lihat
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Fungsi untuk menampilkan modal gambar
+        function showImageModal(mediaId) {
+            const images = JSON.parse(localStorage.getItem('githubImages') || '[]');
+            const mediaItem = images.find(item => item.id == mediaId);
+            
+            if (mediaItem) {
+                const modal = document.getElementById('imageModal');
+                const modalImage = document.getElementById('modalImage');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalDescription = document.getElementById('modalDescription');
+                const modalDownload = document.getElementById('modalDownload');
+                
+                modalImage.src = mediaItem.url;
+                modalTitle.textContent = mediaItem.title;
+                modalDescription.textContent = mediaItem.description;
+                
+                // Setup download button
+                modalDownload.onclick = function() {
+                    downloadMedia(mediaItem);
+                    modal.style.display = 'none';
+                };
+                
+                modal.style.display = 'block';
+            }
+        }
+        
+        // Fungsi untuk download media - PERBAIKAN UTAMA
+        function downloadMedia(mediaItem) {
+            // Buat elemen link untuk download
+            const downloadLink = document.createElement('a');
+            downloadLink.href = mediaItem.url;
+            
+            // Dapatkan ekstensi file dari URL
+            const urlParts = mediaItem.url.split('.');
+            const fileExtension = urlParts[urlParts.length - 1].split('?')[0];
+            
+            // Buat nama file yang aman
+            const safeTitle = mediaItem.title.replace(/[^a-zA-Z0-9]/g, '_');
+            downloadLink.download = `${safeTitle}.${fileExtension}`;
+            downloadLink.style.display = 'none';
+            
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            // Update counter download
+            incrementDownload(mediaItem.id);
+            
+            // Update tampilan counter di card yang diklik
+            const downloadCountElement = document.querySelector(`[data-media-id="${mediaItem.id}"]`)?.closest('.media-card')?.querySelector('.download-count');
+            if (downloadCountElement) {
+                const currentCount = parseInt(downloadCountElement.textContent.match(/\d+/)[0]);
+                downloadCountElement.innerHTML = `<i class="fas fa-download"></i> ${currentCount + 1}`;
+            }
+            
+            // Tampilkan notifikasi sukses
+            showDownloadNotification(mediaItem.title);
+        }
+        
+        // Fungsi untuk menampilkan notifikasi download
+        function showDownloadNotification(filename) {
+            // Buat elemen notifikasi
+            const notification = document.createElement('div');
+            notification.className = 'download-notification';
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-check-circle notification-icon"></i>
+                    <div class="notification-text">
+                        <div class="notification-title">Download Berhasil!</div>
+                        <div class="notification-filename">${filename}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Tampilkan notifikasi
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Sembunyikan notifikasi setelah 3 detik
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Event listener untuk tab navigation
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Update active tab
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show active content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabId + 'Tab').classList.add('active');
+            });
+        });
+        
+        // Event listener untuk tombol - PERBAIKAN UTAMA
+        document.addEventListener('click', function(e) {
+            // Tombol download gratis
+            if (e.target.closest('.download-btn') && !e.target.closest('.view-btn')) {
+                const downloadBtn = e.target.closest('.download-btn');
+                const mediaId = downloadBtn.getAttribute('data-media-id');
+                
+                if (mediaId) {
+                    // Dapatkan URL file dari localStorage
+                    const images = JSON.parse(localStorage.getItem('githubImages') || '[]');
+                    const mediaItem = images.find(item => item.id == mediaId);
+                    
+                    if (mediaItem) {
+                        downloadMedia(mediaItem);
+                    }
+                }
+            }
+            
+            // Tombol lihat gambar (thumbnail dan view button)
+            if (e.target.closest('.media-thumbnail') || e.target.closest('.view-btn')) {
+                const element = e.target.closest('.media-thumbnail') || e.target.closest('.view-btn');
+                const mediaId = element.getAttribute('data-media-id');
+                
+                if (mediaId) {
+                    showImageModal(mediaId);
+                }
+            }
+        });
+        
+        // Modal close functionality
+        document.getElementById('modalClose').addEventListener('click', function() {
+            document.getElementById('imageModal').style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+        
+        // Muat avatar dan media saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAvatar();
+            loadMedia();
+            initializeMusicPlayer();
+            
+            // Debug: Cek data di localStorage
+            console.log('Data gambar di localStorage:', JSON.parse(localStorage.getItem('githubImages') || '[]'));
+        });
+
+        // Auto refresh data setiap 30 detik untuk update real-time
+        setInterval(() => {
+            loadMedia();
+        }, 30000);
+    </script>
+</body>
+</html>
