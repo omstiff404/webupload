@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Upload ke GitHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px 0;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .back-link {
+            color: white;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Login Container */
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .login-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #667eea;
+            font-size: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="file"],
+        input[type="number"],
+        input[type="url"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .panel-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #667eea;
+            font-size: 2.2rem;
+        }
+        
+        /* Tab Navigation */
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e1e5e9;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 5px;
+        }
+        
+        .admin-tab {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #666;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .admin-tab.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Upload Form */
+        .upload-form {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .file-input-container {
+            position: relative;
+            border: 2px dashed #dee2e6;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s;
+            background: white;
+            margin-bottom: 20px;
+        }
+        
+        .file-input-container.dragover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .file-input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .file-input-label {
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .file-input-label i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+            color: #667eea;
+        }
+        
+        .file-size-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .selected-files {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .files-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        .file-item-preview {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #e1e5e9;
+        }
+        
+        .file-item-preview:last-child {
+            border-bottom: none;
+        }
+        
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-right: 15px;
+            color: #667eea;
+        }
+        
+        .file-info-preview {
+            flex: 1;
+        }
+        
+        .file-name-preview {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .file-size-preview {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .file-status {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-uploading {
+            background: #cce7ff;
+            color: #004085;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .remove-file {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .batch-settings {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e1e5e9;
+            margin-bottom: 20px;
+        }
+        
+        .upload-btn {
+            width: 100%;
+            padding: 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .upload-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .upload-btn:hover:not(:disabled) {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        
+        /* Upload Status */
+        .upload-status {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            display: none;
+        }
+        
+        .upload-status.error {
+            color: #e74c3c;
+        }
+        
+        .upload-status.success {
+            color: #27ae60;
+        }
+        
+        /* Progress Bars */
+        .batch-progress {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        /* GitHub Configuration */
+        .github-config {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px dashed #dee2e6;
+            margin-bottom: 20px;
+        }
+        
+        .config-section {
+            margin-bottom: 15px;
+        }
+        
+        .config-section h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .test-connection-btn {
+            background: #17a2b8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .test-connection-btn:hover {
+            background: #138496;
+        }
+        
+        /* Settings Form */
+        .settings-form {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .settings-title {
+            margin-bottom: 20px;
+            color: #667eea;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+        
+        .change-password-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ffc107;
+            color: #212529;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .change-password-btn:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+        }
+        
+        /* Category Management */
+        .category-settings {
+            background: #e7f3ff;
+            border: 2px solid #b3d9ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .category-tag {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .category-tag .delete-category {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .category-tag .delete-category:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .category-input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* File List */
+        .file-list {
+            margin-top: 30px;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e1e5e9;
+            transition: background 0.3s;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .file-item:hover {
+            background: #f8f9fa;
+        }
+        
+        .file-preview-small {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        
+        .file-info {
+            flex: 1;
+        }
+        
+        .file-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .file-details {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .file-category {
+            background: #e2e8f0;
+            color: #4a5568;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .file-actions button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .edit-file-btn {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .edit-file-btn:hover {
+            background: #138496;
+        }
+        
+        .delete-file-btn {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .delete-file-btn:hover {
+            background: #c82333;
+        }
+        
+        .logout-btn {
+            background: #6c757d;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 30px;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+            font-weight: 600;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            background: white;
+            border-radius: 12px;
+        }
+        
+        /* Memory Management Warning */
+        .memory-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .memory-warning h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-tabs {
+                flex-direction: column;
+            }
+            
+            .file-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .file-preview-small {
+                margin-right: 0;
+            }
+            
+            .file-details {
+                justify-content: center;
+            }
+            
+            .file-actions {
+                flex-direction: column;
+            }
+            
+            .category-input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Panel Admin - Upload ke GitHub</h1>
+            <p>Upload dan kelola gambar dengan penyimpanan di GitHub</p>
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Kembali ke Galeri
+            </a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Login Form -->
+        <div id="loginForm" class="login-container">
+            <h2 class="login-title">Admin Login</h2>
+            <div id="loginMessage" class="message"></div>
+            <form id="loginFormElement">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+        
+        <!-- Admin Panel -->
+        <div id="adminPanel" class="admin-panel">
+            <h2 class="panel-title">Panel Admin - GitHub Storage</h2>
+            
+            <!-- Tab Navigation -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="upload">Upload Gambar</button>
+                <button class="admin-tab" data-tab="github">Konfigurasi GitHub</button>
+                <button class="admin-tab" data-tab="settings">Pengaturan</button>
+            </div>
+            
+            <!-- Upload Tab -->
+            <div id="uploadTab" class="tab-content active">
+                <div id="uploadMessage" class="message"></div>
+                
+                <div class="upload-form">
+                    <h3 style="margin-bottom: 20px; color: #667eea;">Upload Gambar ke GitHub</h3>
+                    
+                    <!-- GitHub Status -->
+                    <div id="githubStatus" class="message" style="display: none;"></div>
+                    
+                    <!-- Memory Warning -->
+                    <div class="memory-warning">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Informasi Upload ke GitHub</h4>
+                        <p>Fitur ini akan mengupload gambar langsung ke repository GitHub Anda:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Gambar disimpan di folder sesuai kategori</li>
+                            <li>File tersedia via GitHub Pages</li>
+                            <li>Maksimal 25MB per file (batas GitHub)</li>
+                            <li>Butuh koneksi internet stabil</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Upload Form -->
+                    <div id="multipleUploadForm">
+                        <form id="uploadFormMultiple">
+                            <div class="batch-settings">
+                                <div class="form-group">
+                                    <label for="batchTitle">Judul Pattern</label>
+                                    <input type="text" id="batchTitle" name="batchTitle" placeholder="Contoh: Gambar {n}" value="Gambar {n}">
+                                    <small style="color: #666; font-size: 0.8rem;">Gunakan {n} untuk nomor urut</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="batchDescription">Deskripsi Umum</label>
+                                    <textarea id="batchDescription" name="batchDescription" rows="2" placeholder="Deskripsi untuk semua file"></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="batchCategory">Kategori untuk Semua File</label>
+                                    <select id="batchCategory" name="batchCategory" required>
+                                        <option value="">Pilih Kategori</option>
+                                        <!-- Kategori akan dimuat secara dinamis -->
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Upload Multiple Files (Maksimal 10 file sekaligus)</label>
+                                <div class="file-input-container" id="fileDropAreaMultiple">
+                                    <input type="file" id="fileInputMultiple" class="file-input" accept=".jpg,.jpeg,.png,.gif,.webp" multiple required>
+                                    <div class="file-input-label">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <strong>Klik atau drag & drop files di sini</strong>
+                                        <div class="file-size-info" id="fileSizeInfoMultiple">
+                                            Format: JPG, PNG, GIF, WebP<br>
+                                            <strong>Maksimal: 25MB per file (batas GitHub)</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="selected-files" id="selectedFiles">
+                                    <h4 style="margin-bottom: 10px; color: #667eea;">File Terpilih: <span id="fileCount">0</span> file (<span id="totalSize">0 MB</span>)</h4>
+                                    <div class="files-list" id="filesList">
+                                        <!-- Daftar file akan muncul di sini -->
+                                    </div>
+                                </div>
+                                
+                                <div class="upload-status" id="uploadStatusMultiple"></div>
+                                
+                                <div class="batch-progress" id="batchProgress">
+                                    <div class="progress-info">
+                                        <span id="progressText">Memproses: 0/0</span>
+                                        <span id="progressPercent">0%</span>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar-fill" id="progressBarFill"></div>
+                                    </div>
+                                    <div class="progress-info">
+                                        <span>Status: <span id="uploadStatusText">Menunggu</span></span>
+                                        <span id="memoryInfo">Memori: -</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="upload-btn" id="uploadBtnMultiple" disabled>
+                                <i class="fab fa-github"></i>
+                                Upload ke GitHub (<span id="uploadFileCount">0</span> file)
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="file-list">
+                    <h3 style="margin-bottom: 20px; color: #667eea;">Daftar Gambar di GitHub</h3>
+                    <div id="imageList">
+                        <div id="imageItems">
+                            <!-- Daftar gambar akan ditampilkan di sini -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GitHub Configuration Tab -->
+            <div id="githubTab" class="tab-content">
+                <div id="githubConfigMessage" class="message"></div>
+                
+                <div class="github-config">
+                    <h3 class="settings-title"><i class="fab fa-github"></i> Konfigurasi GitHub</h3>
+                    
+                    <div class="config-section">
+                        <h4>1. Personal Access Token</h4>
+                        <p style="margin-bottom: 10px; color: #666;">
+                            Buat Personal Access Token di GitHub dengan permission <strong>repo</strong> dan <strong>workflow</strong>
+                        </p>
+                        <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="font-family: monospace;">
+                        <small style="color: #666; display: block; margin-top: 5px;">
+                            Token disimpan secara lokal di browser Anda
+                        </small>
+                    </div>
+                    
+                    <div class="config-section">
+                        <h4>2. Repository Information</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <label for="githubOwner">Pemilik Repository</label>
+                                <input type="text" id="githubOwner" placeholder="username-anda">
+                            </div>
+                            <div>
+                                <label for="githubRepo">Nama Repository</label>
+                                <input type="text" id="githubRepo" placeholder="nama-repo">
+                            </div>
+                        </div>
+                        <small style="color: #666; display: block; margin-top: 5px;">
+                            Contoh: https://github.com/<strong>username-anda</strong>/<strong>nama-repo</strong>
+                        </small>
+                    </div>
+                    
+                    <div class="config-section">
+                        <h4>3. Branch Target</h4>
+                        <input type="text" id="githubBranch" placeholder="main" value="main">
+                        <small style="color: #666; display: block; margin-top: 5px;">
+                            Biasanya "main" atau "master"
+                        </small>
+                    </div>
+                    
+                    <div class="config-section">
+                        <h4>4. Base Path</h4>
+                        <input type="text" id="githubPath" placeholder="images" value="images">
+                        <small style="color: #666; display: block; margin-top: 5px;">
+                            Folder tempat gambar akan disimpan di repository
+                        </small>
+                    </div>
+                    
+                    <button type="button" class="test-connection-btn" id="testGithubBtn">
+                        <i class="fas fa-plug"></i> Test Koneksi GitHub
+                    </button>
+                    
+                    <button type="button" class="change-password-btn" id="saveGithubConfigBtn">
+                        <i class="fas fa-save"></i> Simpan Konfigurasi
+                    </button>
+                </div>
+                
+                <div class="settings-form">
+                    <h3 class="settings-title">Status Konfigurasi</h3>
+                    <div id="configStatus">
+                        <p style="color: #666; text-align: center;">Belum ada konfigurasi GitHub yang disimpan</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div id="settingsTab" class="tab-content">
+                <div id="settingsMessage" class="message"></div>
+                
+                <!-- Category Management -->
+                <div class="category-settings">
+                    <h3 class="settings-title"><i class="fas fa-tags"></i> Kelola Kategori</h3>
+                    
+                    <div class="category-list" id="categoryList">
+                        <!-- Daftar kategori akan dimuat di sini -->
+                    </div>
+                    
+                    <div class="category-input-group">
+                        <input type="text" id="newCategory" placeholder="Masukkan nama kategori baru" style="flex: 1;">
+                        <button type="button" class="change-password-btn" id="addCategoryBtn" style="margin-top: 0; width: auto;">
+                            <i class="fas fa-plus"></i>
+                            Tambah Kategori
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="logoutBtn" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi
+        const UPLOAD_CONFIG = {
+            maxImageSize: 25 * 1024 * 1024, // 25MB batas GitHub
+            maxTotalSize: 100 * 1024 * 1024, // 100MB total
+            maxFiles: 10,
+            githubMaxSize: 25 * 1024 * 1024
+        };
+
+        const DEFAULT_CATEGORIES = [
+            "Wallpaper", "Ilustrasi", "Pemandangan", "Abstrak", "Seni Digital", "Karakter", "Lainnya"
+        ];
+
+        // State management
+        let selectedFilesArray = [];
+        let uploadQueue = [];
+        let processedCount = 0;
+        let successfulUploads = 0;
+        let failedUploads = 0;
+        let isUploading = false;
+
+        // Elemen DOM
+        const loginForm = document.getElementById('loginForm');
+        const adminPanel = document.getElementById('adminPanel');
+        const loginFormElement = document.getElementById('loginFormElement');
+        const uploadFormMultiple = document.getElementById('uploadFormMultiple');
+        const fileInputMultiple = document.getElementById('fileInputMultiple');
+        const uploadBtnMultiple = document.getElementById('uploadBtnMultiple');
+        const selectedFiles = document.getElementById('selectedFiles');
+        const filesList = document.getElementById('filesList');
+        const batchProgress = document.getElementById('batchProgress');
+        const progressText = document.getElementById('progressText');
+        const progressPercent = document.getElementById('progressPercent');
+        const progressBarFill = document.getElementById('progressBarFill');
+        const uploadStatusText = document.getElementById('uploadStatusText');
+        const memoryInfo = document.getElementById('memoryInfo');
+        const fileCount = document.getElementById('fileCount');
+        const totalSize = document.getElementById('totalSize');
+        const uploadFileCount = document.getElementById('uploadFileCount');
+        const loginMessage = document.getElementById('loginMessage');
+        const uploadMessage = document.getElementById('uploadMessage');
+        const githubStatus = document.getElementById('githubStatus');
+        const githubConfigMessage = document.getElementById('githubConfigMessage');
+        const settingsMessage = document.getElementById('settingsMessage');
+        const imageItems = document.getElementById('imageItems');
+        const adminTabs = document.querySelectorAll('.admin-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const newCategoryInput = document.getElementById('newCategory');
+        const addCategoryBtn = document.getElementById('addCategoryBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        // GitHub Configuration Elements
+        const githubToken = document.getElementById('githubToken');
+        const githubOwner = document.getElementById('githubOwner');
+        const githubRepo = document.getElementById('githubRepo');
+        const githubBranch = document.getElementById('githubBranch');
+        const githubPath = document.getElementById('githubPath');
+        const testGithubBtn = document.getElementById('testGithubBtn');
+        const saveGithubConfigBtn = document.getElementById('saveGithubConfigBtn');
+        const configStatus = document.getElementById('configStatus');
+
+        // GitHub API Configuration
+        const GITHUB_API = {
+            baseUrl: 'https://api.github.com',
+            uploadFile: async function(owner, repo, path, content, message, token, branch = 'main') {
+                const url = `${this.baseUrl}/repos/${owner}/${repo}/contents/${path}`;
+                
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        content: btoa(content),
+                        branch: branch
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+                }
+                
+                return await response.json();
+            },
+            
+            checkRepoAccess: async function(owner, repo, token) {
+                const url = `${this.baseUrl}/repos/${owner}/${repo}`;
+                
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                    }
+                });
+                
+                return response.ok;
+            },
+            
+            getFileContent: async function(owner, repo, path, token, branch = 'main') {
+                const url = `${this.baseUrl}/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+                
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                    }
+                });
+                
+                if (!response.ok) {
+                    return null;
+                }
+                
+                return await response.json();
+            }
+        };
+
+        // Initialize
+        function initialize() {
+            loadCategorySelects();
+            loadCategoryList();
+            setupTabNavigation();
+            updateMemoryInfo();
+            setupEventListeners();
+            setupFileUpload();
+            loadGithubConfig();
+            loadMediaList();
+            
+            // Update memory info periodically
+            setInterval(updateMemoryInfo, 2000);
+        }
+
+        // Setup file upload functionality
+        function setupFileUpload() {
+            // File input change event
+            fileInputMultiple.addEventListener('change', function(e) {
+                handleFileSelection(e.target.files);
+            });
+
+            // Drag and drop functionality
+            const fileDropAreaMultiple = document.getElementById('fileDropAreaMultiple');
+            fileDropAreaMultiple.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('dragover');
+            });
+
+            fileDropAreaMultiple.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.classList.remove('dragover');
+            });
+
+            fileDropAreaMultiple.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('dragover');
+                handleFileSelection(e.dataTransfer.files);
+            });
+
+            // Form submit event
+            uploadFormMultiple.addEventListener('submit', function(e) {
+                e.preventDefault();
+                startUploadProcess();
+            });
+        }
+
+        // Handle file selection
+        function handleFileSelection(files) {
+            if (files.length === 0) return;
+
+            // Reset selected files array
+            selectedFilesArray = [];
+
+            // Validate files
+            let totalSizeBytes = 0;
+            let validFiles = [];
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                // Check file type
+                if (!file.type.match('image.*')) {
+                    showMessage(uploadMessage, `File "${file.name}" bukan gambar! Hanya file gambar yang diperbolehkan.`, 'error');
+                    continue;
+                }
+
+                // Check file size
+                if (file.size > UPLOAD_CONFIG.maxImageSize) {
+                    showMessage(uploadMessage, `File "${file.name}" terlalu besar! Maksimal 25MB per file.`, 'error');
+                    continue;
+                }
+
+                // Check total size
+                totalSizeBytes += file.size;
+                if (totalSizeBytes > UPLOAD_CONFIG.maxTotalSize) {
+                    showMessage(uploadMessage, `Total ukuran file melebihi batas! Maksimal 100MB untuk semua file.`, 'error');
+                    break;
+                }
+
+                // Check max files
+                if (validFiles.length >= UPLOAD_CONFIG.maxFiles) {
+                    showMessage(uploadMessage, `Maksimal ${UPLOAD_CONFIG.maxFiles} file yang dapat diupload sekaligus!`, 'error');
+                    break;
+                }
+
+                validFiles.push(file);
+            }
+
+            // Add valid files to selection
+            selectedFilesArray = [...selectedFilesArray, ...validFiles];
+            updateFileList();
+        }
+
+        // Update file list display
+        function updateFileList() {
+            filesList.innerHTML = '';
+            
+            if (selectedFilesArray.length === 0) {
+                selectedFiles.style.display = 'none';
+                uploadBtnMultiple.disabled = true;
+                uploadFileCount.textContent = '0';
+                return;
+            }
+
+            selectedFiles.style.display = 'block';
+            uploadBtnMultiple.disabled = false;
+            uploadFileCount.textContent = selectedFilesArray.length.toString();
+            fileCount.textContent = selectedFilesArray.length.toString();
+
+            // Calculate total size
+            let totalSizeBytes = 0;
+            selectedFilesArray.forEach(file => {
+                totalSizeBytes += file.size;
+            });
+            const totalSizeMB = (totalSizeBytes / (1024 * 1024)).toFixed(2);
+            totalSize.textContent = totalSizeMB;
+
+            // Create file list items
+            selectedFilesArray.forEach((file, index) => {
+                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item-preview';
+                fileItem.innerHTML = `
+                    <div class="file-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="file-info-preview">
+                        <div class="file-name-preview">${file.name}</div>
+                        <div class="file-size-preview">${fileSizeMB} MB</div>
+                    </div>
+                    <div class="file-status status-pending">Menunggu</div>
+                    <button type="button" class="remove-file" data-index="${index}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                filesList.appendChild(fileItem);
+            });
+
+            // Add event listeners for remove buttons
+            document.querySelectorAll('.remove-file').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    removeFile(index);
+                });
+            });
+        }
+
+        // Remove file from selection
+        function removeFile(index) {
+            selectedFilesArray.splice(index, 1);
+            updateFileList();
+        }
+
+        // Start upload process to GitHub
+        async function startUploadProcess() {
+            if (selectedFilesArray.length === 0) {
+                showMessage(uploadMessage, 'Pilih file terlebih dahulu!', 'error');
+                return;
+            }
+
+            // Check GitHub configuration
+            const config = getGithubConfig();
+            if (!config.token || !config.owner || !config.repo) {
+                showMessage(uploadMessage, 'Konfigurasi GitHub belum lengkap! Silakan lengkapi di tab Konfigurasi GitHub.', 'error');
+                return;
+            }
+
+            const batchTitle = document.getElementById('batchTitle').value;
+            const batchDescription = document.getElementById('batchDescription').value;
+            const batchCategory = document.getElementById('batchCategory').value;
+
+            if (!batchCategory) {
+                showMessage(uploadMessage, 'Pilih kategori untuk file!', 'error');
+                return;
+            }
+
+            // Prepare upload queue
+            uploadQueue = [...selectedFilesArray];
+            processedCount = 0;
+            successfulUploads = 0;
+            failedUploads = 0;
+            isUploading = true;
+
+            // Update UI
+            uploadBtnMultiple.disabled = true;
+            batchProgress.style.display = 'block';
+            uploadStatusText.textContent = 'Menyiapkan upload...';
+
+            // Start processing
+            await processFilesToGitHub(uploadQueue, batchTitle, batchDescription, batchCategory, config);
+        }
+
+        // Process files to GitHub
+        async function processFilesToGitHub(files, titlePattern, description, category, config) {
+            for (let i = 0; i < files.length; i++) {
+                if (!isUploading) break;
+
+                const file = files[i];
+                const fileNumber = i + 1;
+                
+                try {
+                    uploadStatusText.textContent = `Mengupload ${file.name}...`;
+                    await uploadFileToGitHub(file, titlePattern, description, category, fileNumber, config);
+                    successfulUploads++;
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    failedUploads++;
+                    showMessage(uploadMessage, `Gagal upload ${file.name}: ${error.message}`, 'error');
+                }
+                
+                processedCount++;
+                updateProgress();
+                
+                // Delay between uploads to avoid rate limiting
+                if (i < files.length - 1) {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+            }
+            
+            finishUpload();
+        }
+
+        // Upload single file to GitHub
+        async function uploadFileToGitHub(file, titlePattern, description, category, fileNumber, config) {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const reader = new FileReader();
+                    
+                    reader.onload = async function(e) {
+                        try {
+                            // Generate title and filename
+                            const title = titlePattern.replace('{n}', fileNumber.toString());
+                            const fileExtension = file.name.split('.').pop();
+                            const timestamp = Date.now();
+                            const safeCategory = category.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+                            const filename = `${safeCategory}-${timestamp}-${fileNumber}.${fileExtension}`;
+                            
+                            // Create file path
+                            const filePath = `${config.path}/${safeCategory}/${filename}`;
+                            
+                            // Convert file to base64 for GitHub
+                            const base64Content = e.target.result.split(',')[1];
+                            
+                            // Upload to GitHub
+                            const commitMessage = `Add image: ${title} - ${description}`;
+                            
+                            await GITHUB_API.uploadFile(
+                                config.owner,
+                                config.repo,
+                                filePath,
+                                base64Content,
+                                commitMessage,
+                                config.token,
+                                config.branch
+                            );
+                            
+                            // Create image metadata
+                            const imageData = {
+                                id: timestamp,
+                                title: title,
+                                description: description,
+                                category: category,
+                                filename: filename,
+                                size: formatFileSize(file.size),
+                                url: `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${filePath}`,
+                                githubUrl: `https://github.com/${config.owner}/${config.repo}/blob/${config.branch}/${filePath}`,
+                                uploadDate: new Date().toISOString(),
+                                path: filePath
+                            };
+
+                            // Save metadata to localStorage
+                            saveImageMetadata(imageData);
+                            
+                            resolve(imageData);
+                        } catch (error) {
+                            reject(error);
+                        }
+                    };
+                    
+                    reader.onerror = function() {
+                        reject(new Error('Gagal membaca file'));
+                    };
+                    
+                    reader.readAsDataURL(file);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+
+        // Save image metadata to localStorage
+        function saveImageMetadata(imageData) {
+            const existingImages = JSON.parse(localStorage.getItem('githubImages') || '[]');
+            existingImages.push(imageData);
+            localStorage.setItem('githubImages', JSON.stringify(existingImages));
+        }
+
+        // Update progress display
+        function updateProgress() {
+            const totalFiles = selectedFilesArray.length;
+            const progress = (processedCount / totalFiles) * 100;
+            
+            progressText.textContent = `Memproses: ${processedCount}/${totalFiles}`;
+            progressPercent.textContent = `${Math.round(progress)}%`;
+            progressBarFill.style.width = `${progress}%`;
+        }
+
+        // Finish upload process
+        function finishUpload() {
+            isUploading = false;
+            
+            // Show result message
+            let message = `Upload selesai! ${successfulUploads} file berhasil diupload ke GitHub.`;
+            if (failedUploads > 0) {
+                message += ` ${failedUploads} file gagal.`;
+            }
+            
+            showMessage(uploadMessage, message, 'success');
+            
+            // Reset form
+            uploadBtnMultiple.disabled = false;
+            batchProgress.style.display = 'none';
+            selectedFilesArray = [];
+            updateFileList();
+            loadMediaList();
+            
+            // Reset progress
+            progressBarFill.style.width = '0%';
+            uploadStatusText.textContent = 'Menunggu';
+        }
+
+        // GitHub Configuration Functions
+        function loadGithubConfig() {
+            const config = JSON.parse(localStorage.getItem('githubConfig') || '{}');
+            
+            githubToken.value = config.token || '';
+            githubOwner.value = config.owner || '';
+            githubRepo.value = config.repo || '';
+            githubBranch.value = config.branch || 'main';
+            githubPath.value = config.path || 'images';
+            
+            updateConfigStatus(config);
+        }
+
+        function saveGithubConfig() {
+            const config = {
+                token: githubToken.value.trim(),
+                owner: githubOwner.value.trim(),
+                repo: githubRepo.value.trim(),
+                branch: githubBranch.value.trim() || 'main',
+                path: githubPath.value.trim() || 'images'
+            };
+            
+            if (!config.token || !config.owner || !config.repo) {
+                showMessage(githubConfigMessage, 'Token, Owner, dan Repository wajib diisi!', 'error');
+                return false;
+            }
+            
+            localStorage.setItem('githubConfig', JSON.stringify(config));
+            updateConfigStatus(config);
+            showMessage(githubConfigMessage, 'Konfigurasi GitHub berhasil disimpan!', 'success');
+            return true;
+        }
+
+        function getGithubConfig() {
+            return JSON.parse(localStorage.getItem('githubConfig') || '{}');
+        }
+
+        function updateConfigStatus(config) {
+            if (!config.token || !config.owner || !config.repo) {
+                configStatus.innerHTML = '<p style="color: #dc3545; text-align: center;">Konfigurasi GitHub belum lengkap</p>';
+                githubStatus.innerHTML = '<div class="message error">Konfigurasi GitHub belum lengkap</div>';
+                githubStatus.style.display = 'block';
+                return;
+            }
+            
+            configStatus.innerHTML = `
+                <div style="background: #d4edda; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #155724; margin-bottom: 10px;">✅ Konfigurasi Aktif</h4>
+                    <p><strong>Repository:</strong> ${config.owner}/${config.repo}</p>
+                    <p><strong>Branch:</strong> ${config.branch}</p>
+                    <p><strong>Path:</strong> ${config.path}</p>
+                </div>
+            `;
+            
+            githubStatus.innerHTML = '<div class="message success">✅ GitHub terkoneksi</div>';
+            githubStatus.style.display = 'block';
+        }
+
+        async function testGithubConnection() {
+            const config = {
+                token: githubToken.value.trim(),
+                owner: githubOwner.value.trim(),
+                repo: githubRepo.value.trim(),
+                branch: githubBranch.value.trim() || 'main'
+            };
+            
+            if (!config.token || !config.owner || !config.repo) {
+                showMessage(githubConfigMessage, 'Token, Owner, dan Repository wajib diisi!', 'error');
+                return;
+            }
+            
+            try {
+                uploadStatusText.textContent = 'Menguji koneksi...';
+                const hasAccess = await GITHUB_API.checkRepoAccess(config.owner, config.repo, config.token);
+                
+                if (hasAccess) {
+                    showMessage(githubConfigMessage, '✅ Koneksi GitHub berhasil!', 'success');
+                } else {
+                    showMessage(githubConfigMessage, '❌ Gagal mengakses repository. Periksa token dan nama repository.', 'error');
+                }
+            } catch (error) {
+                showMessage(githubConfigMessage, `❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Setup tab navigation
+        function setupTabNavigation() {
+            adminTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    adminTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show active content
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(tabId + 'Tab').classList.add('active');
+                });
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Logout button
+            logoutBtn.addEventListener('click', function() {
+                localStorage.setItem('isLoggedIn', 'false');
+                loginForm.style.display = 'block';
+                adminPanel.style.display = 'none';
+                loginFormElement.reset();
+            });
+
+            // GitHub configuration buttons
+            testGithubBtn.addEventListener('click', testGithubConnection);
+            saveGithubConfigBtn.addEventListener('click', saveGithubConfig);
+
+            // Category management
+            addCategoryBtn.addEventListener('click', function() {
+                const categoryName = newCategoryInput.value.trim();
+                if (addCategory(categoryName)) {
+                    newCategoryInput.value = '';
+                }
+            });
+
+            newCategoryInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const categoryName = newCategoryInput.value.trim();
+                    if (addCategory(categoryName)) {
+                        newCategoryInput.value = '';
+                    }
+                }
+            });
+        }
+
+        // Load categories into select
+        function loadCategorySelects() {
+            const categories = getCategories();
+            const batchCategorySelect = document.getElementById('batchCategory');
+            
+            while (batchCategorySelect.options.length > 1) {
+                batchCategorySelect.remove(1);
+            }
+            
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                batchCategorySelect.appendChild(option);
+            });
+        }
+
+        // Get categories from localStorage
+        function getCategories() {
+            const storedCategories = localStorage.getItem('imageCategories');
+            return storedCategories ? JSON.parse(storedCategories) : DEFAULT_CATEGORIES;
+        }
+
+        // Save categories to localStorage
+        function saveCategories(categories) {
+            localStorage.setItem('imageCategories', JSON.stringify(categories));
+        }
+
+        // Load category list for management
+        function loadCategoryList() {
+            const categories = getCategories();
+            const categoryList = document.getElementById('categoryList');
+            
+            categoryList.innerHTML = '';
+            
+            if (categories.length === 0) {
+                categoryList.innerHTML = '<p style="color: #666; text-align: center; width: 100%;">Belum ada kategori</p>';
+                return;
+            }
+            
+            categories.forEach(category => {
+                const categoryTag = document.createElement('div');
+                categoryTag.className = 'category-tag';
+                categoryTag.innerHTML = `
+                    ${category}
+                    <button class="delete-category" data-category="${category}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                categoryList.appendChild(categoryTag);
+            });
+            
+            // Add event listeners for delete buttons
+            document.querySelectorAll('.delete-category').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const categoryToDelete = this.getAttribute('data-category');
+                    deleteCategory(categoryToDelete);
+                });
+            });
+        }
+
+        // Add new category
+        function addCategory(categoryName) {
+            if (!categoryName.trim()) {
+                showMessage(settingsMessage, 'Masukkan nama kategori!', 'error');
+                return false;
+            }
+            
+            const categories = getCategories();
+            
+            if (categories.includes(categoryName)) {
+                showMessage(settingsMessage, 'Kategori sudah ada!', 'error');
+                return false;
+            }
+            
+            categories.push(categoryName);
+            saveCategories(categories);
+            loadCategorySelects();
+            loadCategoryList();
+            
+            showMessage(settingsMessage, `Kategori "${categoryName}" berhasil ditambahkan!`, 'success');
+            return true;
+        }
+
+        // Delete category
+        function deleteCategory(categoryName) {
+            if (!confirm(`Apakah Anda yakin ingin menghapus kategori "${categoryName}"?`)) {
+                return;
+            }
+            
+            const categories = getCategories();
+            const updatedCategories = categories.filter(cat => cat !== categoryName);
+            
+            saveCategories(updatedCategories);
+            loadCategorySelects();
+            loadCategoryList();
+            
+            showMessage(settingsMessage, `Kategori "${categoryName}" berhasil dihapus!`, 'success');
+        }
+
+        // Load media list
+        function loadMediaList() {
+            const images = JSON.parse(localStorage.getItem('githubImages') || '[]');
+            imageItems.innerHTML = '';
+            
+            if (images.length === 0) {
+                imageItems.innerHTML = '<div class="empty-state">Belum ada gambar yang diupload ke GitHub</div>';
+                return;
+            }
+            
+            // Sort by upload date (newest first)
+            images.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+            
+            images.forEach((image, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <img src="${image.url}" alt="${image.title}" class="file-preview-small">
+                    <div class="file-info">
+                        <div class="file-name">${image.title}</div>
+                        <div class="file-details">
+                            <span>${image.size}</span>
+                            <span>${new Date(image.uploadDate).toLocaleDateString('id-ID')}</span>
+                            <span class="file-category">${image.category || 'Lainnya'}</span>
+                        </div>
+                        <div style="margin-top: 5px;">
+                            <small style="color: #666;">
+                                <a href="${image.githubUrl}" target="_blank" style="color: #667eea; text-decoration: none;">
+                                    <i class="fab fa-github"></i> Lihat di GitHub
+                                </a>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="file-actions">
+                        <button class="delete-file-btn" data-index="${index}">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
+                    </div>
+                `;
+                imageItems.appendChild(fileItem);
+            });
+            
+            // Add event listeners for delete buttons
+            document.querySelectorAll('.delete-file-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    deleteImage(index);
+                });
+            });
+        }
+
+        // Delete image (only from local storage)
+        function deleteImage(index) {
+            if (!confirm('Apakah Anda yakin ingin menghapus gambar ini dari daftar?')) {
+                return;
+            }
+            
+            const images = JSON.parse(localStorage.getItem('githubImages') || '[]');
+            images.splice(index, 1);
+            localStorage.setItem('githubImages', JSON.stringify(images));
+            loadMediaList();
+            showMessage(uploadMessage, 'Gambar berhasil dihapus dari daftar!', 'success');
+        }
+
+        // Update memory information
+        function updateMemoryInfo() {
+            if (performance.memory) {
+                const usedMB = Math.round(performance.memory.usedJSHeapSize / 1048576);
+                const totalMB = Math.round(performance.memory.totalJSHeapSize / 1048576);
+                memoryInfo.textContent = `Memori: ${usedMB}MB/${totalMB}MB`;
+            }
+        }
+
+        // Check login status
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            showAdminPanel();
+        }
+
+        // Initialize
+        initialize();
+
+        // Event listeners
+        loginFormElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple authentication
+            if (username === "admin" && password === "password123") {
+                localStorage.setItem('isLoggedIn', 'true');
+                showAdminPanel();
+                showMessage(loginMessage, 'Login berhasil!', 'success');
+            } else {
+                showMessage(loginMessage, 'Username atau password salah!', 'error');
+            }
+        });
+
+        // Show admin panel
+        function showAdminPanel() {
+            loginForm.style.display = 'none';
+            adminPanel.style.display = 'block';
+            loadMediaList();
+        }
+
+        // Show message
+        function showMessage(element, text, type) {
+            element.innerHTML = text;
+            element.className = `message ${type}`;
+            element.style.display = 'block';
+            
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
